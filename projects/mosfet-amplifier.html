@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Stage MOSFET Amplifier | Nayyab Ali</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { cream: '#FFFBEA', navy: '#1D3557', tomato: '#E63946', teal: '#2A9D8F', yellow: '#E9C46A', 'off-white': '#F4F1DE' },
+                    fontFamily: { pixel: ['"Press Start 2P"', 'cursive'], sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    boxShadow: { 'pixel-sm': '2px 2px 0px #1D3557', 'pixel': '4px 4px 0px #1D3557' }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cream text-navy font-sans min-h-screen flex flex-col">
+    <header class="bg-cream border-b-4 border-navy px-4 py-3 sticky top-0 z-40">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-tomato border border-navy flex items-center justify-center">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="3" y="4" width="10" height="10" fill="#E63946"/><rect x="7" y="1" width="2" height="3" fill="#2A9D8F"/></svg>
+                </div>
+                <span class="font-pixel text-xs text-navy">BYTE OF TOMATO</span>
+            </a>
+            <a href="../index.html#projects" class="font-pixel text-xs text-tomato hover:underline">&larr; Back to Projects</a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow space-y-8">
+        <div class="bg-white border-3 border-navy shadow-pixel p-6 space-y-4">
+            <div class="flex justify-between items-start border-b-2 border-navy pb-3">
+                <div>
+                    <span class="px-2 py-0.5 bg-teal text-white font-pixel text-[10px] border border-navy">ELE 404</span>
+                    <h1 class="font-pixel text-lg sm:text-xl text-navy mt-2">Multi-Stage MOSFET Amplifier</h1>
+                </div>
+                <span class="font-pixel text-xs text-navy/60">Analog · SPICE</span>
+            </div>
+
+            <section class="space-y-2">
+                <h2 class="font-pixel text-sm text-tomato">01. Overview</h2>
+                <p class="text-sm leading-relaxed text-navy/80">Analog circuit design and SPICE simulation of a multi-stage MOSFET amplifier featuring gain optimization and DC biasing analysis.</p>
+            </section>
+
+            <section class="space-y-2 border-t border-navy/20 pt-4">
+                <h2 class="font-pixel text-sm text-teal">02. DC Biasing &amp; Small-Signal Analysis</h2>
+                <p class="text-sm text-navy/60 italic"><!-- TODO: Add SPICE schematics, gain calculations, and frequency response curves --></p>
+            </section>
+
+            <section class="space-y-2 border-t border-navy/20 pt-4">
+                <h2 class="font-pixel text-sm text-tomato">03. Repository</h2>
+                <a href="https://github.com/byteoftomato" target="_blank" class="font-pixel text-xs text-teal hover:underline block">GitHub Repository &rarr;</a>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-navy text-white py-4 px-4 font-pixel text-[10px] text-center border-t-4 border-navy">
+        Nayyab Ali — Multi-Stage MOSFET Amplifier
+    </footer>
+</body>
+</html>

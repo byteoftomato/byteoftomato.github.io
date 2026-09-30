@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nayyab Ali | Computer Engineering Portfolio (byteoftomato)</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FFFBEA',
+                        navy: '#1D3557',
+                        tomato: '#E63946',
+                        'tomato-dark': '#C52233',
+                        teal: '#2A9D8F',
+                        yellow: '#E9C46A',
+                        'dark-card': '#2B2D42',
+                        'off-white': '#F4F1DE'
+                    },
+                    fontFamily: {
+                        pixel: ['"Press Start 2P"', 'cursive'],
+                        terminal: ['VT323', 'monospace'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'pixel-sm': '2px 2px 0px #1D3557',
+                        'pixel': '4px 4px 0px #1D3557',
+                        'pixel-lg': '6px 6px 0px #1D3557',
+                        'pixel-tomato': '4px 4px 0px #E63946',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .pixel-border {
+            border: 3px solid #1D3557;
+        }
+        .pixel-border-sm {
+            border: 2px solid #1D3557;
+        }
+        
+        /* TOMATOMOBILE Race Animation */
+        @keyframes raceLaunch {
+            0% { transform: translateX(0) translateY(0); }
+            15% { transform: translateX(-3px) translateY(1px); }
+            30% { transform: translateX(-5px) translateY(-1px); }
+            45% { transform: translateX(-2px) translateY(1px); }
+            70% { transform: translateX(120px) translateY(0); opacity: 0.8; }
+            71% { transform: translateX(-80px) translateY(0); opacity: 0; }
+            100% { transform: translateX(0) translateY(0); opacity: 1; }
+        }
+        .racing-anim {
+            animation: raceLaunch 0.85s cubic-bezier(0.45, 0, 0.55, 1);
+        }
+
+        /* Particles */
+        .exhaust-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #E9C46A;
+            border: 1px solid #1D3557;
+            pointer-events: none;
+            opacity: 0.9;
+            animation: exhaustFade 0.6s forwards ease-out;
+        }
+        @keyframes exhaustFade {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+            100% { transform: translate(-30px, 10px) scale(0.2); opacity: 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .racing-anim { animation: none !important; }
+            .exhaust-particle { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-cream text-navy font-sans antialiased selection:bg-tomato selection:text-white min-h-screen flex flex-col">
+
+    <!-- Header/Navbar -->
+    <header class="sticky top-0 z-40 bg-cream/95 backdrop-blur border-b-4 border-navy px-4 py-3">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            <!-- Brand -->
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-8 h-8 bg-off-white border-2 border-navy flex items-center justify-center shadow-pixel-sm group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform">
+                    <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="7" y="1" width="2" height="3" fill="#2A9D8F"/>
+                        <rect x="5" y="2" width="2" height="2" fill="#2A9D8F"/>
+                        <rect x="3" y="4" width="10" height="10" fill="#E63946"/>
+                        <rect x="4" y="3" width="8" height="1" fill="#E63946"/>
+                        <rect x="2" y="6" width="12" height="6" fill="#E63946"/>
+                        <rect x="5" y="6" width="2" height="2" fill="#FFFBEA" opacity="0.6"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-pixel text-xs text-tomato block leading-none">BYTE OF TOMATO</span>
+                    <span class="font-pixel text-sm font-bold block leading-tight">Nayyab Ali</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="flex items-center gap-2 sm:gap-4 font-pixel text-xs overflow-x-auto py-1">
+                <a href="#about" class="hover:text-tomato transition-colors px-2 py-1">About</a>
+                <a href="#projects" class="hover:text-tomato transition-colors px-2 py-1">Projects</a>
+                <a href="#notes" class="hover:text-tomato transition-colors px-2 py-1">Notes</a>
+                <a href="#skills" class="hover:text-tomato transition-colors px-2 py-1">Skills</a>
+                <a href="#musings" class="hover:text-tomato transition-colors px-2 py-1">Musings</a>
+                <a href="#contact" class="hover:text-tomato transition-colors px-2 py-1">Contact</a>
+            </nav>
+
+            <!-- Action Toolbar -->
+            <div class="flex items-center gap-2">
+                <button id="sfx-toggle" onclick="toggleSFX()" aria-label="Toggle Sound Effects" class="w-8 h-8 bg-yellow border-2 border-navy flex items-center justify-center shadow-pixel-sm hover:bg-yellow/80 active:translate-x-0.5 active:translate-y-0.5">
+                    <span id="sfx-icon" class="font-pixel text-[10px]">SFX</span>
+                </button>
+
+                <a href="https://github.com/byteoftomato" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="w-8 h-8 bg-white border-2 border-navy flex items-center justify-center shadow-pixel-sm hover:bg-off-white active:translate-x-0.5 active:translate-y-0.5">
+                    <svg class="w-4 h-4 fill-navy" viewBox="0 0 24 24">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                </a>
+
+                <a href="https://www.linkedin.com/in/nayyab-fatima-ali-164495213" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="w-8 h-8 bg-white border-2 border-navy flex items-center justify-center shadow-pixel-sm hover:bg-off-white active:translate-x-0.5 active:translate-y-0.5">
+                    <svg class="w-4 h-4 fill-navy" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+
+                <a href="#contact" class="px-3 py-1 bg-tomato text-white font-pixel text-xs border-2 border-navy shadow-pixel-sm hover:bg-tomato-dark active:translate-x-0.5 active:translate-y-0.5 transition-all">
+                    RESUME
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow space-y-16">
+
+        <!-- Hello Section -->
+        <section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center pt-4">
+            <div class="md:col-span-7 space-y-6">
+                <div class="inline-block px-3 py-1 bg-yellow border-2 border-navy shadow-pixel-sm">
+                    <span class="font-pixel text-xs font-bold text-navy">Computer Engineering @ TMU</span>
+                </div>
+                
+                <h1 class="font-pixel text-2xl sm:text-3xl md:text-4xl text-navy leading-relaxed">
+                    Hi, I’m Nayyab!
+                </h1>
+
+                <p class="font-pixel text-sm sm:text-base text-tomato leading-normal font-bold">
+                    I bridge the gap between hardware and software.
+                </p>
+
+                <p class="text-base sm:text-lg text-navy leading-relaxed max-w-2xl font-sans">
+                    I’m a Computer Engineering student at Toronto Metropolitan University interested in 
+                    embedded software, vehicle controls, EV systems, and hardware-software integration. 
+                    I like building things that connect code to the physical world through 
+                    microcontrollers, sensors, and real-time systems.
+                </p>
+
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <span class="px-2.5 py-1 bg-white border-2 border-navy font-pixel text-[11px] shadow-pixel-sm">C / C++ / Embedded</span>
+                    <span class="px-2.5 py-1 bg-white border-2 border-navy font-pixel text-[11px] shadow-pixel-sm">CAN / UART / Microcontrollers</span>
+                    <span class="px-2.5 py-1 bg-white border-2 border-navy font-pixel text-[11px] shadow-pixel-sm">EV Systems / Vehicle Controls</span>
+                </div>
+
+                <div class="flex flex-wrap gap-4 pt-4 font-pixel text-xs">
+                    <a href="#projects" class="px-5 py-3 bg-tomato text-white border-3 border-navy shadow-pixel hover:bg-tomato-dark active:translate-x-0.5 active:translate-y-0.5 transition-all">
+                        View Projects
+                    </a>
+                    <a href="#notes" class="px-5 py-3 bg-teal text-white border-3 border-navy shadow-pixel hover:bg-teal/90 active:translate-x-0.5 active:translate-y-0.5 transition-all">
+                        Explore Notes
+                    </a>
+                    <a href="#contact" class="px-5 py-3 bg-white text-navy border-3 border-navy shadow-pixel hover:bg-off-white active:translate-x-0.5 active:translate-y-0.5 transition-all">
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Hero Widget: TOMATOMOBILE -->
+            <div class="md:col-span-5">
+                <div class="bg-white border-4 border-navy shadow-pixel-lg p-4 relative">
+                    <!-- Retro Window Header -->
+                    <div class="bg-navy text-white px-3 py-1.5 flex justify-between items-center mb-4">
+                        <span class="font-pixel text-xs tracking-wider">TOMATOMOBILE.EXE</span>
+                        <div class="flex gap-1.5">
+                            <div class="w-3 h-3 bg-yellow border border-white"></div>
+                            <div class="w-3 h-3 bg-tomato border border-white"></div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Racing Box -->
+                    <div id="car-stage" class="bg-off-white border-2 border-navy p-6 flex flex-col items-center justify-center relative min-h-[190px] overflow-hidden">
+                        
+                        <!-- Race Car SVG Graphic -->
+                        <div id="race-car" class="relative cursor-pointer transition-transform duration-75">
+                            <svg width="140" height="60" viewBox="0 0 140 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Rear Wing -->
+                                <rect x="10" y="10" width="12" height="20" fill="#1D3557"/>
+                                <rect x="5" y="10" width="22" height="6" fill="#E63946"/>
+                                <!-- Body Base -->
+                                <rect x="20" y="24" width="80" height="16" fill="#E63946"/>
+                                <rect x="30" y="18" width="45" height="12" fill="#E63946"/>
+                                <!-- Nose cone -->
+                                <rect x="100" y="28" width="25" height="8" fill="#E63946"/>
+                                <rect x="125" y="30" width="10" height="4" fill="#E9C46A"/>
+                                <!-- Front Wing -->
+                                <rect x="120" y="32" width="15" height="6" fill="#1D3557"/>
+                                <!-- Cockpit / Driver Helmet (Tomato Style) -->
+                                <rect x="50" y="14" width="12" height="10" fill="#1D3557"/>
+                                <circle cx="56" cy="18" r="4" fill="#E63946"/>
+                                <rect x="54" y="14" width="4" height="2" fill="#2A9D8F"/>
+                                <!-- Tomato Decal on Side -->
+                                <circle cx="75" cy="32" r="5" fill="#FFFBEA"/>
+                                <circle cx="75" cy="32" r="3" fill="#E63946"/>
+                                <!-- Wheels -->
+                                <rect x="25" y="36" width="18" height="18" fill="#1D3557"/>
+                                <rect x="28" y="39" width="12" height="12" fill="#FFFBEA"/>
+                                <rect x="85" y="36" width="18" height="18" fill="#1D3557"/>
+                                <rect x="88" y="39" width="12" height="12" fill="#FFFBEA"/>
+                            </svg>
+                        </div>
+
+                        <button onclick="raceCarAction()" class="mt-4 px-4 py-1.5 bg-yellow font-pixel text-xs border-2 border-navy shadow-pixel-sm hover:bg-yellow/90 active:translate-x-0.5 active:translate-y-0.5">
+                            [ Click to Race ]
+                        </button>
+                    </div>
+
+                    <!-- Status Box -->
+                    <div class="mt-4 p-3 bg-cream border-2 border-navy font-terminal text-lg leading-snug">
+                        <p class="text-navy font-bold"><span class="text-tomato">NOW:</span> Designing at Formula Racing TMU</p>
+                        <p class="text-navy/80"><span class="text-teal font-bold">LEARNING:</span> CAN / Embedded Systems</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 00 — About Me Section -->
+        <section id="about" class="space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="bg-tomato text-white font-pixel text-xs px-2.5 py-1 border-2 border-navy shadow-pixel-sm">00</div>
+                <h2 class="font-pixel text-xl sm:text-2xl text-navy">About Me</h2>
+            </div>
+
+            <!-- Responsive Two Columns -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Left Column: Background -->
+                <div class="bg-white border-3 border-navy shadow-pixel p-6 space-y-4">
+                    <h3 class="font-pixel text-sm text-tomato border-b-2 border-navy pb-2">Background</h3>
+                    <p class="text-navy leading-relaxed font-sans text-base">
+                       My interest in STEM started early, after meeting astronaut Dr. Roberta Bondar 
+                       in elementary school and becoming fascinated by astronomy. 
+                       I also grew up reading about women like Ada Lovelace and Mary Jackson 
+                       who inspired me to explore engineering. 
+                       In high school, that interest expanded into programming through web development with Girls Who Code
+                        and game development in computer science class. In university, I’ve gravitated toward 
+                        the parts of computer engineering where code meets electronics, 
+                        from digital systems and microcontrollers to embedded development and vehicle technology.
+                    </p>
+                </div>
+
+                <!-- Right Column: Current & Previous Roles -->
+<div class="bg-white border-3 border-navy shadow-pixel p-6 space-y-4">
+    <h3 class="font-pixel text-sm text-teal border-b-2 border-navy pb-2">
+        Current &amp; Previous Roles
+    </h3>
+    
+    <div class="space-y-4 font-sans">
+
+        <!-- Current -->
+        <div class="border-l-4 border-tomato pl-3 py-0.5">
+            <h4 class="font-bold text-navy text-base">
+                Senior Designer — Electric Powertrain
+            </h4>
+            <p class="text-xs font-pixel text-tomato">
+                TM Formula Racing
+            </p>
+            <p class="text-xs text-navy/70 mt-1 font-mono">
+                Dashboard • VCU • Embedded Systems • CAN
+            </p>
+        </div>
+
+        <!-- Current -->
+        <div class="border-l-4 border-tomato pl-3 py-0.5">
+            <h4 class="font-bold text-navy text-base">
+                Co-Chair
+            </h4>
+            <p class="text-xs font-pixel text-tomato">
+                IEEE Computer Society TMU
+            </p>
+            <p class="text-xs text-navy/70 mt-1 font-mono">
+                Leadership • Events • Industry Relations
+            </p>
+        </div>
+
+        <!-- Previous -->
+        <div class="border-l-4 border-yellow pl-3 py-0.5">
+            <h4 class="font-bold text-navy text-base">
+                Junior Software Engineer
+            </h4>
+            <p class="text-xs font-pixel text-navy">
+                Metropolitan Aerospace &amp; Combustion Hub (MACH)
+            </p>
+            <p class="text-xs text-navy/70 mt-1 font-mono">
+                React • JavaScript • Python • Git/GitHub
+            </p>
+        </div>
+
+    </div>
+</div>
+            </div>
+        </section>
+
+        <!-- 01 — Projects Section -->
+        <section id="projects" class="space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="bg-tomato text-white font-pixel text-xs px-2.5 py-1 border-2 border-navy shadow-pixel-sm">01</div>
+                <h2 class="font-pixel text-xl sm:text-2xl text-navy">Projects</h2>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Project 1 -->
+                <!-- TODO: Maintain code in projects/formula-sae-dashboard.html -->
+                <div class="bg-white border-3 border-navy shadow-pixel p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 bg-yellow text-navy font-pixel text-[10px] border border-navy">TMFR</span>
+                            <span class="text-xs font-pixel text-navy/60">C/C++</span>
+                        </div>
+                        <h3 class="font-pixel text-sm text-navy mb-2 leading-snug">Formula SAE Driver Dashboard</h3>
+                        <p class="text-sm text-navy/80 font-sans leading-relaxed">
+                            Developing a multi-state Formula SAE EV dashboard and driver interface using real-time vehicle data for driving, diagnostics, fault monitoring, and endurance energy management.
+                        </p>
+                    </div>
+                    <div class="space-y-3 pt-2">
+                        <div class="flex flex-wrap gap-1">
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">Teensy</span>
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">CAN</span>
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">UART</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-navy/20 font-pixel text-xs">
+                            <a href="projects/formula-sae-dashboard.html" class="text-tomato hover:underline">[ Details ]</a>
+                            <a href="https://github.com/byteoftomato" target="_blank" class="text-navy hover:text-tomato">GitHub →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <!-- TODO: Maintain code in projects/formula-sae-soc-estimator.html -->
+                <div class="bg-white border-3 border-navy shadow-pixel p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 bg-yellow text-navy font-pixel text-[10px] border border-navy">TMFR</span>
+                            <span class="text-xs font-pixel text-navy/60">C</span>
+                        </div>
+                        <h3 class="font-pixel text-sm text-navy mb-2 leading-snug">Formula SAE Battery SOC Estimator</h3>
+                        <p class="text-sm text-navy/80 font-sans leading-relaxed">
+                            Battery State of Charge estimation using pack-voltage measurement, voltage-divider scaling, lookup tables, and interpolation.
+                        </p>
+                    </div>
+                    <div class="space-y-3 pt-2">
+                        <div class="flex flex-wrap gap-1">
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">EV</span>
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">Embedded</span>
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">Battery</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-navy/20 font-pixel text-xs">
+                            <a href="projects/formula-sae-soc-estimator.html" class="text-tomato hover:underline">[ Details ]</a>
+                            <a href="https://github.com/byteoftomato" target="_blank" class="text-navy hover:text-tomato">GitHub →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <!-- TODO: Maintain code in projects/bookstore-management-system.html -->
+                <div class="bg-white border-3 border-navy shadow-pixel p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 bg-teal text-white font-pixel text-[10px] border border-navy">COE 528</span>
+                            <span class="text-xs font-pixel text-navy/60">Java</span>
+                        </div>
+                        <h3 class="font-pixel text-sm text-navy mb-2 leading-snug">Bookstore Management System</h3>
+                        <p class="text-sm text-navy/80 font-sans leading-relaxed">
+                            Object-oriented software design implementing state patterns, file I/O persistence, and user role management for bookstore operations.
+                        </p>
+                    </div>
+                    <div class="space-y-3 pt-2">
+                        <div class="flex flex-wrap gap-1">
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">OOP</span>
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">Design Patterns</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-navy/20 font-pixel text-xs">
+                            <a href="projects/bookstore-management-system.html" class="text-tomato hover:underline">[ Details ]</a>
+                            <a href="https://github.com/byteoftomato" target="_blank" class="text-navy hover:text-tomato">GitHub →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <!-- TODO: Maintain code in projects/digital-logic-fsm.html -->
+                <div class="bg-white border-3 border-navy shadow-pixel p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 bg-teal text-white font-pixel text-[10px] border border-navy">COE 328</span>
+                            <span class="text-xs font-pixel text-navy/60">VHDL</span>
+                        </div>
+                        <h3 class="font-pixel text-sm text-navy mb-2 leading-snug">Digital Logic &amp; FSM Design</h3>
+                        <p class="text-sm text-navy/80 font-sans leading-relaxed">
+                            Finite State Machine implementation, schematic capture, and digital circuit simulation targeting Intel Quartus and FPGA hardware.
+                        </p>
+                    </div>
+                    <div class="space-y-3 pt-2">
+                        <div class="flex flex-wrap gap-1">
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">FPGA</span>
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">Quartus</span>
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">Logic</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-navy/20 font-pixel text-xs">
+                            <a href="projects/digital-logic-fsm.html" class="text-tomato hover:underline">[ Details ]</a>
+                            <a href="https://github.com/byteoftomato" target="_blank" class="text-navy hover:text-tomato">GitHub →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <!-- TODO: Maintain code in projects/mosfet-amplifier.html -->
+                <div class="bg-white border-3 border-navy shadow-pixel p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 bg-teal text-white font-pixel text-[10px] border border-navy">ELE 404</span>
+                            <span class="text-xs font-pixel text-navy/60">Analog</span>
+                        </div>
+                        <h3 class="font-pixel text-sm text-navy mb-2 leading-snug">Multi-Stage MOSFET Amplifier</h3>
+                        <p class="text-sm text-navy/80 font-sans leading-relaxed">
+                            Analog circuit design and SPICE simulation of a multi-stage MOSFET amplifier featuring gain optimization and DC biasing analysis.
+                        </p>
+                    </div>
+                    <div class="space-y-3 pt-2">
+                        <div class="flex flex-wrap gap-1">
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">SPICE</span>
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">Analog</span>
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">Circuits</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-navy/20 font-pixel text-xs">
+                            <a href="projects/mosfet-amplifier.html" class="text-tomato hover:underline">[ Details ]</a>
+                            <a href="https://github.com/byteoftomato" target="_blank" class="text-navy hover:text-tomato">GitHub →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <!-- TODO: Maintain code in projects/algorithms-data-structures.html -->
+                <div class="bg-white border-3 border-navy shadow-pixel p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 bg-teal text-white font-pixel text-[10px] border border-navy">COE 428</span>
+                            <span class="text-xs font-pixel text-navy/60">C / C++</span>
+                        </div>
+                        <h3 class="font-pixel text-sm text-navy mb-2 leading-snug">Algorithms &amp; Data Structures</h3>
+                        <p class="text-sm text-navy/80 font-sans leading-relaxed">
+                            Implementation of core data structures, graph traversal, sorting algorithms, and memory management optimization in C/C++.
+                        </p>
+                    </div>
+                    <div class="space-y-3 pt-2">
+                        <div class="flex flex-wrap gap-1">
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">Trees</span>
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">Graphs</span>
+                            <span class="px-1.5 py-0.5 bg-off-white text-navy font-mono text-xs border border-navy">Sorting</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-navy/20 font-pixel text-xs">
+                            <a href="projects/algorithms-data-structures.html" class="text-tomato hover:underline">[ Details ]</a>
+                            <a href="https://github.com/byteoftomato" target="_blank" class="text-navy hover:text-tomato">GitHub →</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 02 — Notes Section -->
+        <section id="notes" class="space-y-6">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="bg-tomato text-white font-pixel text-xs px-2.5 py-1 border-2 border-navy shadow-pixel-sm">02</div>
+                    <div>
+                        <h2 class="font-pixel text-xl sm:text-2xl text-navy">Notes</h2>
+                        
+                    </div>
+                </div>
+                <a href="notes/index.html" class="px-4 py-2 bg-yellow text-navy font-pixel text-xs border-2 border-navy shadow-pixel-sm hover:bg-yellow/80">
+                    [ All Notes ]
+                </a>
+            </div>
+
+            <!-- Index-Card Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                
+                <!-- Note Card 1 -->
+                <div class="bg-off-white border-2 border-navy p-4 shadow-pixel-sm relative flex flex-col justify-between">
+                    <div class="border-b-2 border-dashed border-navy/30 pb-2 mb-2">
+                        <span class="font-pixel text-[10px] text-tomato uppercase">ELEC-01</span>
+                        <h3 class="font-pixel text-xs text-navy mt-1">Circuits 101</h3>
+                    </div>
+                    <p class="text-xs text-navy/80 font-sans mb-4">
+                        Resistors, capacitors, inductors, circuit analysis, KVL/KCL, and core fundamentals.
+                    </p>
+                    <a href="notes/circuits-101.html" class="font-pixel text-[10px] text-teal hover:underline self-end">
+                        Read Index Card &rarr;
+                    </a>
+                </div>
+
+                <!-- Note Card 2 -->
+                <div class="bg-off-white border-2 border-navy p-4 shadow-pixel-sm relative flex flex-col justify-between">
+                    <div class="border-b-2 border-dashed border-navy/30 pb-2 mb-2">
+                        <span class="font-pixel text-[10px] text-tomato uppercase">PROG-01</span>
+                        <h3 class="font-pixel text-xs text-navy mt-1">C / C++ Basics</h3>
+                    </div>
+                    <p class="text-xs text-navy/80 font-sans mb-4">
+                        Loops, conditionals, data types, pointers, memory management, and core programming concepts.
+                    </p>
+                    <a href="notes/cpp-basics.html" class="font-pixel text-[10px] text-teal hover:underline self-end">
+                        Read Index Card &rarr;
+                    </a>
+                </div>
+
+                <!-- Note Card 3 -->
+                <div class="bg-off-white border-2 border-navy p-4 shadow-pixel-sm relative flex flex-col justify-between">
+                    <div class="border-b-2 border-dashed border-navy/30 pb-2 mb-2">
+                        <span class="font-pixel text-[10px] text-tomato uppercase">EMBED-01</span>
+                        <h3 class="font-pixel text-xs text-navy mt-1">Embedded Systems</h3>
+                    </div>
+                    <p class="text-xs text-navy/80 font-sans mb-4">
+                        I²C, CAN, UART, SPI, PWM, GPIO, ADC, interrupts, timers, and microcontroller concepts.
+                    </p>
+                    <a href="notes/embedded-systems.html" class="font-pixel text-[10px] text-teal hover:underline self-end">
+                        Read Index Card &rarr;
+                    </a>
+                </div>
+
+                <!-- Note Card 4 -->
+                <div class="bg-off-white border-2 border-navy p-4 shadow-pixel-sm relative flex flex-col justify-between">
+                    <div class="border-b-2 border-dashed border-navy/30 pb-2 mb-2">
+                        <span class="font-pixel text-[10px] text-tomato uppercase">CS-01</span>
+                        <h3 class="font-pixel text-xs text-navy mt-1">Algorithms &amp; Data Structures</h3>
+                    </div>
+                    <p class="text-xs text-navy/80 font-sans mb-4">
+                        Arrays, linked lists, stacks, queues, trees, searching, sorting, and time complexity.
+                    </p>
+                    <a href="notes/algorithms-data-structures.html" class="font-pixel text-[10px] text-teal hover:underline self-end">
+                        Read Index Card &rarr;
+                    </a>
+                </div>
+
+                <!-- Note Card 5 -->
+                <div class="bg-off-white border-2 border-navy p-4 shadow-pixel-sm relative flex flex-col justify-between">
+                    <div class="border-b-2 border-dashed border-navy/30 pb-2 mb-2">
+                        <span class="font-pixel text-[10px] text-tomato uppercase">LOGIC-01</span>
+                        <h3 class="font-pixel text-xs text-navy mt-1">Digital Logic / VHDL</h3>
+                    </div>
+                    <p class="text-xs text-navy/80 font-sans mb-4">
+                        Boolean algebra, combinational logic, sequential circuits, state machines, and hardware description.
+                    </p>
+                    <a href="notes/digital-logic-vhdl.html" class="font-pixel text-[10px] text-teal hover:underline self-end">
+                        Read Index Card &rarr;
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 03 — Skills Section -->
+        <section id="skills" class="space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="bg-tomato text-white font-pixel text-xs px-2.5 py-1 border-2 border-navy shadow-pixel-sm">03</div>
+                <h2 class="font-pixel text-xl sm:text-2xl text-navy">Skills</h2>
+            </div>
+
+            <!-- Stats Bar Display (Equal Width - Decorative) -->
+            <div class="bg-white border-3 border-navy shadow-pixel p-6 space-y-5">
+                
+                <!-- Skill 1 -->
+                <div class="space-y-1.5">
+                    <div class="flex justify-between text-xs font-pixel">
+                        <span class="text-navy">C / C++</span>
+                        <span class="text-tomato">Embedded + Coursework</span>
+                    </div>
+                    <div class="w-full h-4 bg-off-white border-2 border-navy p-0.5">
+                        <div class="w-full h-full bg-tomato"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 2 -->
+                <div class="space-y-1.5">
+                    <div class="flex justify-between text-xs font-pixel">
+                        <span class="text-navy">Microcontrollers</span>
+                        <span class="text-teal">STM32 · ESP32 · Teensy · Arduino</span>
+                    </div>
+                    <div class="w-full h-4 bg-off-white border-2 border-navy p-0.5">
+                        <div class="w-full h-full bg-teal"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 3 -->
+                <div class="space-y-1.5">
+                    <div class="flex justify-between text-xs font-pixel">
+                        <span class="text-navy">Embedded Communication</span>
+                        <span class="text-yellow">CAN · UART · SPI · I²C</span>
+                    </div>
+                    <div class="w-full h-4 bg-off-white border-2 border-navy p-0.5">
+                        <div class="w-full h-full bg-yellow"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 4 -->
+                <div class="space-y-1.5">
+                    <div class="flex justify-between text-xs font-pixel">
+                        <span class="text-navy">Digital Systems</span>
+                        <span class="text-navy">VHDL · Quartus · FPGA</span>
+                    </div>
+                    <div class="w-full h-4 bg-off-white border-2 border-navy p-0.5">
+                        <div class="w-full h-full bg-navy"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 5 -->
+                <div class="space-y-1.5">
+                    <div class="flex justify-between text-xs font-pixel">
+                        <span class="text-navy">Web Development</span>
+                        <span class="text-teal">HTML · CSS · JavaScript · React</span>
+                    </div>
+                    <div class="w-full h-4 bg-off-white border-2 border-navy p-0.5">
+                        <div class="w-full h-full bg-teal"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 6 -->
+                <div class="space-y-1.5">
+                    <div class="flex justify-between text-xs font-pixel">
+                        <span class="text-navy">PCB / Electronics</span>
+                        <span class="text-tomato">Altium · KiCad · Circuit Design</span>
+                    </div>
+                    <div class="w-full h-4 bg-off-white border-2 border-navy p-0.5">
+                        <div class="w-full h-full bg-tomato"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 04 — Musings Section -->
+        <section id="musings" class="space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="bg-tomato text-white font-pixel text-xs px-2.5 py-1 border-2 border-navy shadow-pixel-sm">04</div>
+                <div>
+                    <h2 class="font-pixel text-xl sm:text-2xl text-navy">Musings</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Musing 1 -->
+                <div class="bg-white border-3 border-navy shadow-pixel p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] font-pixel text-tomato block mb-1">ESSAY PLACEHOLDER</span>
+                        <h3 class="font-pixel text-xs text-navy leading-snug mb-2">From Physics to F1</h3>
+                        <p class="text-sm font-sans text-navy/80">
+                            The path from exploring galaxies to engineering and F1.
+                        </p>
+                    </div>
+                    <span class="font-pixel text-[10px] text-navy/50 self-end">[ Upcoming ]</span>
+                </div>
+
+                <!-- Musing 2 -->
+                <div class="bg-white border-3 border-navy shadow-pixel p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] font-pixel text-tomato block mb-1">ESSAY PLACEHOLDER</span>
+                        <h3 class="font-pixel text-xs text-navy leading-snug mb-2">Finding My Place in Engineering</h3>
+                        <p class="text-sm font-sans text-navy/80">
+                            A reflection on making space in university for myself and other women.
+                        </p>
+                    </div>
+                    <span class="font-pixel text-[10px] text-navy/50 self-end">[ Upcoming ]</span>
+                </div>
+
+                <!-- Musing 3 -->
+                <div class="bg-white border-3 border-navy shadow-pixel p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] font-pixel text-tomato block mb-1">ESSAY PLACEHOLDER</span>
+                        <h3 class="font-pixel text-xs text-navy leading-snug mb-2">Balancing Books</h3>
+                        <p class="text-sm font-sans text-navy/80">
+                            My guide on balancing school and things that matter outside it.
+                        </p>
+                    </div>
+                    <span class="font-pixel text-[10px] text-navy/50 self-end">[ Upcoming ]</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-white border-4 border-navy shadow-pixel-lg p-8 text-center space-y-6">
+            
+            <!-- Exact Pixel Tomato Logo Matching Header -->
+            <div class="w-12 h-12 bg-off-white border-2 border-navy flex items-center justify-center mx-auto shadow-pixel-sm">
+                <svg width="28" height="28" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="7" y="1" width="2" height="3" fill="#2A9D8F"/>
+                    <rect x="5" y="2" width="2" height="2" fill="#2A9D8F"/>
+                    <rect x="3" y="4" width="10" height="10" fill="#E63946"/>
+                    <rect x="4" y="3" width="8" height="1" fill="#E63946"/>
+                    <rect x="2" y="6" width="12" height="6" fill="#E63946"/>
+                    <rect x="5" y="6" width="2" height="2" fill="#FFFBEA" opacity="0.6"/>
+                </svg>
+            </div>
+
+            <h2 class="font-pixel text-xl sm:text-2xl text-navy">Let’s Work Together!</h2>
+
+            <p class="text-navy font-sans max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+            If you’re working on embedded systems, EVs, or something interesting at the intersection of hardware and software, feel free to reach out.
+            </p>
+
+            <p class="text-xs sm:text-sm font-pixel text-tomato max-w-xl mx-auto leading-relaxed">
+            Bonus points if tomatoes, bits, or bytes are involved.
+            </p>
+
+            <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <!-- Copy Email Widget -->
+                <div class="flex items-center border-2 border-navy bg-off-white shadow-pixel-sm">
+                    <span class="px-3 py-2 font-mono text-sm text-navy">nayyab.ali@torontomu.ca</span>
+                    <button onclick="copyEmail()" class="px-3 py-2 bg-yellow font-pixel text-xs border-l-2 border-navy hover:bg-yellow/80 active:bg-yellow">
+                        Copy Email
+                    </button>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="flex justify-center gap-4 pt-4 font-pixel text-xs">
+                <a href="https://github.com/byteoftomato" target="_blank" class="px-4 py-2 bg-cream border-2 border-navy shadow-pixel-sm hover:bg-white">
+                    GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/nayyab-fatima-ali-164495213" target="_blank" class="px-4 py-2 bg-cream border-2 border-navy shadow-pixel-sm hover:bg-white">
+                    LinkedIn
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white border-t-4 border-navy py-6 px-4 mt-16 font-pixel text-xs text-center">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <span class="text-tomato">BYTE OF TOMATO</span> — Nayyab Ali © 2026
+            </div>
+            <div class="text-[10px] text-cream/70">
+                Built with html
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Interactivity -->
+    <script>
+        // Web Audio API Retro Sound Effects
+        let sfxEnabled = true;
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+        }
+
+        function playSound(type) {
+            if (!sfxEnabled) return;
+            initAudio();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'vroom') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(450, audioCtx.currentTime + 0.3);
+                osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.7);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.7);
+            }
+        }
+
+        function toggleSFX() {
+            sfxEnabled = !sfxEnabled;
+            const btn = document.getElementById('sfx-icon');
+            btn.textContent = sfxEnabled ? 'SFX' : 'MUTED';
+            btn.parentElement.classList.toggle('bg-yellow', sfxEnabled);
+            btn.parentElement.classList.toggle('bg-gray-300', !sfxEnabled);
+        }
+
+        // TOMATOMOBILE Action with Visual Launch and Exhaust Particles
+        function raceCarAction() {
+            playSound('vroom');
+            const car = document.getElementById('race-car');
+            const stage = document.getElementById('car-stage');
+
+            // Trigger visual animation
+            car.classList.remove('racing-anim');
+            void car.offsetWidth; // Force reflow
+            car.classList.add('racing-anim');
+
+            // Create exhaust speed particles if motion isn't reduced
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                for (let i = 0; i < 4; i++) {
+                    setTimeout(() => {
+                        const particle = document.createElement('div');
+                        particle.className = 'exhaust-particle';
+                        particle.style.left = (car.offsetLeft + 10) + 'px';
+                        particle.style.top = (car.offsetTop + 30 + (Math.random() * 10 - 5)) + 'px';
+                        stage.appendChild(particle);
+                        setTimeout(() => particle.remove(), 600);
+                    }, i * 80);
+                }
+            }
+        }
+
+        // Copy Email Functionality
+        function copyEmail() {
+            const email = "nayyab.ali@torontomu.ca";
+            navigator.clipboard.writeText(email).then(() => {
+                alert("Email copied to clipboard: " + email);
+            }).catch(err => {
+                console.error("Failed to copy email: ", err);
+            });
+        }
+    </script>
+</body>
+</html>

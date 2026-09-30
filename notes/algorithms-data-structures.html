@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithms & Data Structures | Nayyab Ali Study Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { cream: '#FFFBEA', navy: '#1D3557', tomato: '#E63946', teal: '#2A9D8F', yellow: '#E9C46A', 'off-white': '#F4F1DE' },
+                    fontFamily: { pixel: ['"Press Start 2P"', 'cursive'], sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    boxShadow: { 'pixel-sm': '2px 2px 0px #1D3557', 'pixel': '4px 4px 0px #1D3557' }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cream text-navy font-sans min-h-screen flex flex-col">
+    <header class="bg-cream border-b-4 border-navy px-4 py-3 sticky top-0 z-40">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-tomato border border-navy flex items-center justify-center">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="3" y="4" width="10" height="10" fill="#E63946"/><rect x="7" y="1" width="2" height="3" fill="#2A9D8F"/></svg>
+                </div>
+                <span class="font-pixel text-xs text-navy">BYTE OF TOMATO</span>
+            </a>
+            <a href="index.html" class="font-pixel text-xs text-tomato hover:underline">&larr; Back to Index</a>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 py-8 flex-grow space-y-6">
+        <article class="bg-white border-3 border-navy shadow-pixel p-6 space-y-4">
+            <div class="border-b-2 border-navy pb-3">
+                <span class="font-pixel text-[10px] text-tomato">CS-01</span>
+                <h1 class="font-pixel text-lg text-navy mt-1">Algorithms &amp; Data Structures</h1>
+            </div>
+
+            <p class="text-sm text-navy/80 leading-relaxed">
+                Arrays, linked lists, stacks, queues, trees, searching, sorting, and time complexity.
+            </p>
+
+            <div class="bg-off-white border-2 border-navy p-4 text-xs font-mono">
+                <p class="font-bold text-navy">// TODO: Add Big-O charts and binary search tree pseudocode</p>
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-navy text-white py-4 px-4 font-pixel text-[10px] text-center border-t-4 border-navy">
+        Nayyab Ali — Algorithms &amp; Data Structures Notes
+    </footer>
+</body>
+</html>
